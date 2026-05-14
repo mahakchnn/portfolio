@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>IHG Fraud Prevention | Mahak Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F2E9;
+    --navy: #1B1B38;
+    --teal: #3BBFB2;
+    --yellow: #FFCF44;
+    --coral: #E97B55;
+    --white: #FFFFFF;
+    --text: #1B1B38;
+    --text-light: #6A6070;
+    --border: rgba(27,27,56,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-pills { display: flex; gap: 0.5rem; }
+  .nav-pill {
+    padding: 0.35rem 1rem;
+    border: 1.5px solid var(--navy);
+    border-radius: 999px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--navy);
+    transition: all 0.2s;
+  }
+  .nav-pill:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+  .nav-right {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--navy);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  .nav-right a { color: var(--navy); text-decoration: none; }
+  .nav-right span { opacity: 0.3; }
+
+  /* ── SECTION NAV (sticky side) ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    gap: 5rem;
+    align-items: start;
+  }
+  .section-nav {
+    position: sticky;
+    top: 5rem;
+  }
+  .section-nav a {
+    display: block;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.8rem;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+  .section-nav a:hover,
+  .section-nav a.active {
+    color: var(--coral);
+    border-left-color: var(--coral);
+  }
+  .section-nav-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .main { min-width: 0; }
+
+  /* ── HERO ── */
+  .hero {
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 4rem;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .hero-tag-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--coral);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    max-width: 100%;
+  }
+  .hero h1 em { font-style: italic; color: var(--coral); }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 100%;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 2.5rem;
+    width: fit-content;
+  }
+  .meta-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+  }
+  .meta-value {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  /* ── SKILL TAGS ── */
+  .hero-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.8rem;
+  }
+  .skill-tag {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--navy);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── SECTION ── */
+  .section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-tag {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .section h2 em { font-style: italic; color: var(--coral); }
+  .section p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  .section p:last-child { margin-bottom: 0; }
+
+  /* ── HIGHLIGHT ── */
+  .highlight {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .stat-cell {
+    background: var(--white);
+    padding: 2rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #E97B55;
+    line-height: 1;
+    margin-bottom: 0.6rem;
+    letter-spacing: -0.02em;
+  }
+  .stat-desc {
+    font-size: 0.88rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  /* ── THREE COL ── */
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .col-cell {
+    background: var(--white);
+    padding: 1.8rem;
+  }
+  .col-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+  }
+  .col-cell p {
+    font-size: 0.96rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* ── SCENARIOS ── */
+  .scenarios {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .scenario {
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .scenario.a { background: rgba(233,123,85,0.12); border: 1px solid rgba(233,123,85,0.25); }
+  .scenario.b { background: var(--white); border: 1px solid var(--border); }
+  .scenario-badge {
+    display: inline-block;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+  }
+  .scenario.a .scenario-badge { background: rgba(233,123,85,0.2); color: var(--coral); }
+  .scenario.b .scenario-badge { background: rgba(233,123,85,0.12); color: var(--coral); }
+  .scenario h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    line-height: 1.3;
+  }
+  .scenario.a h3 { color: var(--navy); }
+  .scenario.b h3 { color: var(--navy); }
+  .scenario p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    max-width: 100%;
+    margin-bottom: 1rem;
+  }
+  .scenario.a p { color: var(--text-light); }
+  .scenario.b p { color: var(--text-light); }
+  .scenario ul { list-style: none; }
+  .scenario ul li {
+    font-size: 0.93rem;
+    padding: 0.2rem 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .scenario.a ul li { color: var(--text-light); }
+  .scenario.b ul li { color: var(--text-light); }
+  .li-dot {
+    width: 4px; height: 4px;
+    border-radius: 50%;
+    margin-top: 0.65rem;
+    flex-shrink: 0;
+  }
+  .scenario.a .li-dot { background: var(--coral); }
+  .scenario.b .li-dot { background: var(--coral); }
+
+  /* ── SOLUTION CARDS ── */
+  .solution-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 2.5rem 0;
+  }
+  .solution-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 2rem;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: box-shadow 0.2s;
+  }
+  .solution-item:hover { box-shadow: 0 4px 20px rgba(27,27,56,0.08); }
+  .sol-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #E97B55;
+    line-height: 1;
+    padding-top: 0.1rem;
+    white-space: nowrap;
+  }
+  .sol-body h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.3rem;
+    line-height: 1.3;
+    display: inline;
+  }
+  .sol-tag {
+    display: inline-block;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+  }
+  .sol-tag.a { background: rgba(255,207,68,0.2); color: #9A7500; }
+  .sol-tag.b { background: rgba(233,123,85,0.12); color: #B04020; }
+  .sol-body p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    line-height: 1.7;
+    max-width: 100%;
+    margin: 0.4rem 0 0;
+  }
+  .sol-layer {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+
+  /* ── VIDEO PLACEHOLDER ── */
+  .video-wrap {
+    margin: 2.5rem 0;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .video-label {
+    background: var(--white);
+    padding: 0.7rem 1.2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .video-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+  }
+  .video-placeholder {
+    background: var(--white);
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    cursor: pointer;
+  }
+  .play-btn {
+    width: 56px; height: 56px;
+    background: var(--coral);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+  .play-btn:hover { transform: scale(1.08); opacity: 0.9; }
+  .play-btn svg { margin-left: 4px; }
+  .video-placeholder span {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* ── SCREEN SHOTS ── */
+  .screen-wrap {
+    margin: 1.5rem 0;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .screen-label {
+    background: var(--white);
+    padding: 0.6rem 1.2rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .screen-wrap img {
+    width: 100%;
+    display: block;
+    max-height: 460px;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0.75rem;
+    margin: 2.5rem 0;
+  }
+  .outcome-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.3rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .outcome-card h4 {
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--coral);
+    line-height: 1.3;
+  }
+
+  /* ── GLOSSARY ── */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+  .gloss-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.3rem;
+  }
+  .gloss-term {
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.25rem;
+  }
+  .gloss-name {
+    font-size: 0.98rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 0.4rem;
+  }
+  .gloss-card p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  /* ── TOOLS ── */
+  .tools-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  .tool-pill {
+    padding: 0.3rem 0.9rem;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--navy);
+    background: var(--white);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.88rem;
+    color: var(--text-light);
+  }
+  footer a {
+    color: var(--coral);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+    .section-nav { display: none; }
+    .top-nav { padding: 1rem 1.5rem; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .three-col, .scenarios, .stats-row { grid-template-columns: 1fr; }
+    .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+    .glossary-grid { grid-template-columns: 1fr 1fr; }
+    .solution-item { grid-template-columns: 40px 1fr; }
+    .sol-layer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-pills">
+    <a href="#" class="nav-pill">About</a>
+    <a href="#" class="nav-pill">Projects</a>
+    <a href="#" class="nav-pill">Experience</a>
+    <a href="#" class="nav-pill">Education</a>
+    <a href="#" class="nav-pill">Highlights</a>
+  </div>
+  <div class="nav-right">
+    <a href="#">Mahak Sharma</a>
+    <span>//</span>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- SECTION NAV -->
+  <aside class="section-nav">
+    <div class="section-nav-label">On this page</div>
+    <a href="#problem">Problem</a>
+    <a href="#why-nam">Why NAM</a>
+    <a href="#scenarios">Scenarios</a>
+    <a href="#solution">Solution</a>
+    <a href="#prototype">Prototype</a>
+    <a href="#outcomes">Outcomes</a>
+    <a href="#glossary">Glossary</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        Cornell Tech BigCo Studio · Spring 2026
+      </div>
+      <h1>Unauthorized OTAs exploiting IHG's distribution chain  <em>and how we built a solution to stop it.</em></h1>
+      <p class="hero-sub">A 10-week strategy and product engagement with IHG Hotels &amp; Resorts to identify and close a $171M to $285M gap in how IHG monitors unauthorized third-party booking activity across its North American portfolio.</p>
+      <div class="hero-meta">
+        <div>
+          <div class="meta-label">Team</div>
+          <div class="meta-value">Mahak Sharma, Akshat Chugh, Mari Sun, Shivani Kadakia</div>
+        </div>
+        <div>
+          <div class="meta-label">Duration</div>
+          <div class="meta-value">10 weeks · Spring 2026</div>
+        </div>
+        <div>
+          <div class="meta-label">Type</div>
+          <div class="meta-value">Strategy &amp; Product Design</div>
+        </div>
+      </div>
+
+      <div class="hero-skills">
+        <span class="skill-tag">Fraud Strategy</span>
+        <span class="skill-tag">Primary Research</span>
+        <span class="skill-tag">Stakeholder Interviews</span>
+        <span class="skill-tag">Product Design</span>
+        <span class="skill-tag">Agentic AI</span>
+        <span class="skill-tag">Go-to-Market</span>
+        <span class="skill-tag">Prototyping</span>
+        <span class="skill-tag">Data Analysis</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <section class="section" id="problem">
+      <div class="section-tag">The Problem</div>
+      <h2>IHG has <em>limited visibility</em> into who resells its inventory.</h2>
+      <p>IHG engaged our team with a wide-scope fraud brief covering chargebacks, loyalty abuse, and card-not-present fraud across a large, franchise-heavy estate. Through primary research and stakeholder interviews, we identified one clear, immediately actionable gap: <span class="highlight">20 to 30% of IHG's bookings arrive through third-party sites and sit entirely outside IHG's fraud detection scope with no signal attached.</span></p>
+
+      <div class="three-col">
+        <div class="col-cell">
+          <div class="col-label">⚠ The Bigger Problem</div>
+          <p>IHG has limited visibility into which reservations arrive via unauthorized booking sites. They scrape IHG.com directly to list IHG properties and take guest payments without any real booking infrastructure.</p>
+        </div>
+        <div class="col-cell" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border);">
+          <div class="col-label">🔍 The Sub-Problem</div>
+          <p>Unauthorized booking sites overcharge guests, mask contact details, and set themselves as the booking contact, causing chargebacks, no-shows, and brand damage at the property level with no warning for IHG.</p>
+        </div>
+        <div class="col-cell">
+          <div class="col-label">💡 The Strategic Insight</div>
+          <p>IHG cannot detect what it cannot see. The fix requires two layers: stop unauthorized sites from scraping IHG's inventory, and verify guests who book through them before they arrive at the property.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY NAM -->
+    <section class="section" id="why-nam">
+      <div class="section-tag">Why OTA Fraud & Why NAM</div>
+      <h2>North America is the <em>highest-impact starting point.</em></h2>
+      <p>With 53% of IHG's global room inventory concentrated in the Americas, North America represents both the highest fraud exposure and the highest-impact region for a scalable pilot. A successful NAM deployment creates a replicable blueprint for APAC, EMEA, and LATAM rollout.</p>
+
+      <div class="stats-row">
+        <div class="stat-cell">
+          <div class="stat-num">$150B</div>
+          <div class="stat-desc">Annual fraud losses across global hospitality (ACFE)</div>
+        </div>
+        <div class="stat-cell" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border);">
+          <div class="stat-num">$5.7B</div>
+          <div class="stat-desc">Fraudulent OTA bookings in the US market annually (AHLA)</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num">$171M–$285M</div>
+          <div class="stat-desc">IHG's direct OTA fraud exposure in NAM (3–5% market share)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCENARIOS -->
+    <section class="section" id="scenarios">
+      <div class="section-tag">Two Scenarios</div>
+      <h2>Two distinct problems. <em>One shared root cause.</em></h2>
+      <p>IHG doesn't control who resells its inventory. The resulting harm plays out in two distinct ways depending on whether the booking ever reaches IHG's system.</p>
+
+      <div class="scenarios">
+        <div class="scenario a">
+          <span class="scenario-badge">Scenario A</span>
+          <h3>Booking reaches IHG</h3>
+          <p>An unauthorized booking site lists IHG properties and processes a guest reservation. The booking arrives in IHG's system but the guest has been overcharged, given wrong cancellation terms, or had their contact details masked.</p>
+          <ul>
+            <li><span class="li-dot"></span>Brand damage at the property level</li>
+            <li><span class="li-dot"></span>Guest complaints with no upstream context</li>
+            <li><span class="li-dot"></span>Booking source untagged: no fraud signal</li>
+          </ul>
+        </div>
+        <div class="scenario b">
+          <span class="scenario-badge">Scenario B</span>
+          <h3>Booking never reaches IHG</h3>
+          <p>A rogue site scrapes IHG pricing, lists the property, and collects the guest's payment with no real booking infrastructure. The guest arrives at the property with no reservation on record.</p>
+          <ul>
+            <li><span class="li-dot"></span>Guest arrives with no reservation</li>
+            <li><span class="li-dot"></span>Direct financial fraud against the guest</li>
+            <li><span class="li-dot"></span>Reputational damage with no recourse</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="stats-row" style="margin-top: 1rem;">
+        <div class="stat-cell">
+          <div class="stat-num" >$120</div>
+          <div class="stat-desc">Avg chargeback value, highest of any sector</div>
+        </div>
+        <div class="stat-cell" style="border-left: 1px solid var(--border); border-right: 1px solid var(--border);">
+          <div class="stat-num" >3.75x</div>
+          <div class="stat-desc">Cost multiplier per chargeback dispute</div>
+        </div>
+        <div class="stat-cell">
+          <div class="stat-num" >23%</div>
+          <div class="stat-desc">Of consumers misled by third-party resellers (AHLA)</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="section" id="solution">
+      <div class="section-tag">The Solution</div>
+      <h2>IHG Secondary OTA <em>Intelligence Layer</em></h2>
+      <p>A three-component system designed to operate entirely within IHG's existing reservation infrastructure. No new systems required. Fully compatible with the franchise independence model. Pilot scope: IHG's 8 to 9 corporate-owned properties, with a phased rollout to corporate-managed and franchise estates as ROI is established.</p>
+
+      <div class="solution-list">
+        <div class="solution-item">
+          <div class="sol-num">01</div>
+          <div class="sol-body">
+            <h3>OTA Source Tagging in GRS</h3><span class="sol-tag a">Addresses Scenario A</span>
+            <p>Every reservation is classified as Verified, Unverified, or Unknown at the point it enters GRS, cross-referenced against IHG's confirmed partner list. No new infrastructure  a configuration within existing GRS that activates all downstream agent capabilities.</p>
+          </div>
+          <span class="sol-layer">GRS layer</span>
+        </div>
+        <div class="solution-item">
+          <div class="sol-num">02</div>
+          <div class="sol-body">
+            <h3>Automated Guest Outreach Agent</h3><span class="sol-tag a">Addresses Scenario A</span>
+            <p>Triggers on every unverified booking. If email exists, sends pre-arrival outreach at 72hr and 48hr, then an autonomous agent call. If loyalty number only, sends an IHG One Rewards app notification. If no contact data, writes a high-risk flag to GRS for front desk action. Human makes one decision: cancel or keep.</p>
+          </div>
+          <span class="sol-layer">Agent + human</span>
+        </div>
+        <div class="solution-item">
+          <div class="sol-num">03</div>
+          <div class="sol-body">
+            <h3>Scraping Detection Monitor</h3><span class="sol-tag b">Addresses Scenario B</span>
+            <p>Detects automated scraping of ihg.com via traffic pattern analysis and monitors metasearch (Google Hotels, Trivago, Kayak) for IHG properties on unauthorized domains. IHG already has Akamai CDN  activating Bot Manager on top is the intervention.</p>
+          </div>
+          <span class="sol-layer">Distribution control</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROTOTYPE -->
+    <section class="section" id="prototype">
+      <div class="section-tag">Prototype</div>
+      <h2>From strategy to <em>working prototype.</em></h2>
+      <p>To demonstrate operational feasibility, we designed and built the IHG Reservation Intelligence Dashboard  a functional prototype spanning three screens built for IHG's cybersecurity and fraud operations teams. The core design principle: agent-led automation with a single, clearly bounded human decision point.</p>
+
+      <!-- VIDEO PLACEHOLDER -->
+      <div class="video-wrap">
+        <div class="video-label">
+          <span class="video-dot" style="background: var(--coral);"></span>
+          Demo Walkthrough
+        </div>
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 4L16 10L6 16V4Z" fill="white"/>
+            </svg>
+          </div>
+          <span>Add your demo video here</span>
+        </div>
+      </div>
+
+      <div class="tools-row">
+        <span class="tool-pill">Figma Make</span>
+        <span class="tool-pill">Claude AI</span>
+        <span class="tool-pill">Agentic workflow design</span>
+        <span class="tool-pill">GRS integration</span>
+        <span class="tool-pill">Human-in-the-loop design</span>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="section" id="outcomes">
+      <div class="section-tag">Strategic Impact</div>
+      <h2>Five dimensions of <em>proactive fraud prevention.</em></h2>
+      <p>The solution shifts IHG's fraud posture from reactive loss reconciliation to proactive upstream prevention. Success is measured by two leading indicators: percentage of properties onboarded and percentage of OTA bookings with active fraud coverage.</p>
+
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <h4>Revenue protection</h4>
+        </div>
+        <div class="outcome-card">
+          <h4>Full channel coverage</h4>
+        </div>
+        <div class="outcome-card">
+          <h4>Proactive detection</h4>
+        </div>
+        <div class="outcome-card">
+          <h4>Franchise compatible</h4>
+        </div>
+        <div class="outcome-card">
+          <h4>Guest trust</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- GLOSSARY -->
+    <section class="section" id="glossary">
+      <div class="section-tag">Key Terms</div>
+      <h2>Quick reference <em>glossary.</em></h2>
+      <p>For anyone less familiar with the hospitality and payments landscape.</p>
+
+      <div class="glossary-grid">
+        <div class="gloss-card">
+          <div class="gloss-term">OTA</div>
+          <div class="gloss-name">Online Travel Agency</div>
+          <p>A third-party site that lists and sells hotel rooms. Examples: Booking.com, Expedia. Unauthorized OTAs do the same without any agreement with IHG.</p>
+        </div>
+        <div class="gloss-card">
+          <div class="gloss-term">Forter</div>
+          <div class="gloss-name">IHG's Fraud Detection Platform</div>
+          <p>Reviews bookings in real time for fraud signals. Only works on IHG's own website  cannot cover third-party bookings by design.</p>
+        </div>
+        <div class="gloss-card">
+          <div class="gloss-term">GRS</div>
+          <div class="gloss-name">Guest Reservation System</div>
+          <p>IHG's central booking database (built with Amadeus). Every reservation across all channels lands here  the only layer IHG fully controls.</p>
+        </div>
+        <div class="gloss-card">
+          <div class="gloss-term">Wholesaler</div>
+          <div class="gloss-name">Bulk Inventory Distributor</div>
+          <p>Companies like Hotelbeds and WebBeds that buy hotel inventory in bulk and resell it. Unauthorized sites exploit these networks to access IHG rooms without permission.</p>
+        </div>
+        <div class="gloss-card">
+          <div class="gloss-term">Chargeback</div>
+          <div class="gloss-name">Disputed Payment Reversal</div>
+          <p>When a guest disputes a payment with their bank and the hotel absorbs the cost. Hospitality has the highest average chargeback value: $120 with a 3.75x cost multiplier.</p>
+        </div>
+        <div class="gloss-card">
+          <div class="gloss-term">CNP Fraud</div>
+          <div class="gloss-name">Card Not Present Fraud</div>
+          <p>A stolen card used for an online booking where no physical verification happens. Common when payment is processed by the third-party site, not IHG directly.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Built by Mahak Sharma · Cornell Tech BigCo Studio 2026</span>
+  <a href="#">Back to Projects</a>
+</footer>
+
+<script>
+  // Active section highlight in sidebar
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.section-nav a');
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>

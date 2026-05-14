@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mahak Sharma — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1B1B38;
+      --cream: #F5F0E8;
+      --teal: #3BBFB2;
+      --coral: #E97B55;
+      --coral-hover: #D96A45;
+      --yellow: #FFCF44;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--navy);
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    h1, h2 { font-family: 'Playfair Display', serif; }
+    h3 { font-family: 'DM Serif Display', serif; }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    em { font-style: italic; }
+
+    /* Dot pattern */
+    .bg-dots {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(rgba(27,27,56,0.08) 1.2px, transparent 1.2px);
+      background-size: 28px 28px;
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    .content-wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      transform: translateZ(0);
+      will-change: transform;
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: relative;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 48px;
+      border-bottom: 1.5px solid rgba(27,27,56,0.1);
+      background: rgba(245,240,232,0.8);
+      backdrop-filter: blur(8px);
+    }
+    .navbar ul { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+    .navbar a.nav-pill {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      border-radius: 9999px;
+      padding: 9px 20px;
+      transition: all 0.2s;
+    }
+    .navbar a.nav-pill:hover {
+      background: var(--teal);
+      color: #fff;
+      border-color: var(--teal);
+    }
+    .navbar .brand {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: rgba(27,27,56,0.85);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== DIVIDER ===== */
+    .divider { height: 1.5px; background: rgba(27,27,56,0.1); }
+
+    /* ===== SECTION LABEL ===== */
+    .section-label {
+      display: inline-block;
+      background: var(--teal);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 11px 28px;
+      border-radius: 9999px;
+      white-space: nowrap;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 28px 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      min-height: calc(100vh - 100px);
+      flex-wrap: wrap;
+    }
+    .hero-visual {
+      position: relative;
+      flex-shrink: 0;
+      width: 420px;
+      height: 420px;
+    }
+    .hero-visual svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-portrait {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #fff;
+      border: 4px solid #fff;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+    }
+    .hero-portrait .icon-circle {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: rgba(27,27,56,0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-portrait .label {
+      font-size: 11px;
+      font-weight: 500;
+      color: rgba(27,27,56,0.5);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .hero-text { max-width: 600px; }
+    .hero-text h1 {
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 12px;
+      font-size: clamp(3rem, 5vw, 4.8rem);
+    }
+    .hero-text p {
+      font-size: 1.25rem;
+      line-height: 1.7;
+      color: #111;
+      margin-bottom: 20px;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-coral {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      background: var(--coral);
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-coral:hover { background: var(--coral-hover); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 32px;
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      background: transparent;
+      color: var(--navy);
+      border: 2px solid var(--navy);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: var(--navy); color: var(--cream); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+
+    /* ===== ABOUT ===== */
+    .about-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 28px 120px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .about-section .text-block { max-width: 680px; }
+    .about-section h2 {
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+      margin-bottom: 28px;
+      font-size: clamp(2rem, 3.8vw, 3.2rem);
+    }
+    .about-section p {
+      font-size: 1.25rem;
+      line-height: 1.75;
+      color: var(--navy);
+      margin-bottom: 20px;
+    }
+    .about-section p:last-child { margin-bottom: 0; }
+
+    /* ===== PROJECTS ===== */
+    .projects-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 28px 120px;
+      overflow: hidden;
+    }
+    .projects-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+    }
+    .projects-header-left {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .projects-header h2 {
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--navy);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+    }
+    .carousel-btns { display: flex; gap: 10px; }
+    .carousel-btn {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      border: 2px solid var(--navy);
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--navy);
+    }
+    .carousel-btn:hover { background: var(--navy); color: var(--cream); }
+    .carousel-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+    .proj-card {
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(27,27,56,0.1);
+      transition: transform 0.2s;
+      display: block;
+    }
+    .proj-card:hover { transform: translateY(-4px); }
+    .proj-card:hover .proj-card-body { background: var(--coral) !important; }
+    .proj-card:hover .proj-card-body * { color: var(--navy) !important; }
+    .proj-card-visual {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .proj-card-visual.placeholder { background: var(--cream); }
+    .proj-card-visual.real { background: #fff; }
+    .proj-logo {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .placeholder-decor-1 {
+      position: absolute;
+      top: -32px; right: -32px;
+      width: 120px; height: 120px;
+      border-radius: 50%;
+      background: var(--teal);
+      opacity: 0.18;
+    }
+    .placeholder-decor-2 {
+      position: absolute;
+      bottom: -20px; left: -20px;
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--yellow);
+      opacity: 0.25;
+    }
+    .placeholder-text {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 0.875rem;
+      color: rgba(27,27,56,0.3);
+    }
+    .proj-card-body {
+      padding: 20px 24px;
+      border-top: 1px solid rgba(27,27,56,0.1);
+      transition: background 0.2s;
+    }
+    .proj-tags { display: flex; gap: 8px; margin-bottom: 10px; flex-wrap: wrap; }
+    .tag {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 3px 10px;
+      border-radius: 9999px;
+      letter-spacing: 0.05em;
+    }
+    .tag-coral { background: var(--coral); color: #fff; }
+    .tag-muted { background: rgba(27,27,56,0.1); color: var(--navy); }
+    .tag-muted-placeholder { background: rgba(27,27,56,0.05); color: rgba(27,27,56,0.35); }
+    .proj-card-body h3 {
+      font-size: 1.125rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+      color: var(--navy);
+    }
+    .proj-card-body p {
+      font-size: 0.875rem;
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+    .proj-card-body .view-link {
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* ===== EXPERIENCE & EDUCATION (shared timeline) ===== */
+    .timeline-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 28px 120px;
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    .timeline-sidebar { padding-top: 8px; }
+    .timeline-rail {
+      position: relative;
+    }
+    .timeline-rail::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 8px;
+      bottom: 8px;
+      width: 1.5px;
+      background: rgba(27,27,56,0.1);
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 32px;
+      padding-top: 28px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid rgba(27,27,56,0.1);
+    }
+    .timeline-item:first-child { padding-top: 0; }
+    .timeline-item:last-child { border-bottom: none; }
+    .timeline-dot {
+      position: absolute;
+      left: -5px;
+      top: 34px;
+      width: 11px; height: 11px;
+      border-radius: 50%;
+      background: var(--teal);
+      border: 2px solid var(--cream);
+    }
+    .timeline-item:first-child .timeline-dot { top: 6px; }
+    .timeline-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+    .timeline-header-left { display: flex; align-items: center; gap: 12px; }
+    .timeline-logo {
+      width: 40px; height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.875rem;
+      flex-shrink: 0;
+    }
+    .timeline-logo.small-text { font-size: 0.75rem; }
+    .timeline-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.25;
+      color: var(--navy);
+    }
+    .timeline-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .timeline-meta span {
+      font-size: 0.75rem;
+      color: rgba(27,27,56,0.4);
+    }
+    .timeline-role {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--coral);
+      margin-bottom: 8px;
+    }
+    .timeline-desc {
+      font-size: 0.95rem;
+      color: rgba(27,27,56,0.65);
+      line-height: 1.7;
+    }
+
+    /* ===== ACHIEVEMENTS ===== */
+    .achievements-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 100px 28px 120px;
+    }
+    .achievements-header {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 52px;
+      flex-wrap: wrap;
+    }
+    .achievements-header h2 {
+      font-weight: 800;
+      color: var(--navy);
+      line-height: 1.1;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+    }
+    .achievements-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .achievement-card {
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 200px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      perspective: 1000px;
+      position: relative;
+      overflow: hidden;
+    }
+    .achievement-card:hover { transform: translateY(-8px); box-shadow: 0 20px 48px rgba(27,27,56,0.15); }
+    .achievement-card .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 200px;
+      transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+      transform-style: preserve-3d;
+    }
+    .achievement-card.flipped .card-inner { transform: rotateY(180deg); }
+    .card-front, .card-back {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .card-front { justify-content: space-between; }
+    .card-back {
+      transform: rotateY(180deg);
+      align-items: center;
+      justify-content: center;
+    }
+    .card-org {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(27,27,56,0.4);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .card-front h3 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      color: var(--navy);
+      font-size: 1.1rem;
+      line-height: 1.25;
+    }
+    .card-subtitle {
+      font-size: 0.78rem;
+      color: rgba(27,27,56,0.45);
+      margin-top: 2px;
+    }
+    .card-view {
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: rgba(27,27,56,0.4);
+      margin-top: 16px;
+    }
+    .card-back p {
+      font-size: 0.95rem;
+      color: var(--navy);
+      line-height: 1.7;
+      text-align: center;
+    }
+    .span-2 { grid-column: span 2; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid rgba(27,27,56,0.1);
+      padding: 40px 24px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .footer-brand {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: rgba(27,27,56,0.7);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .footer-copy {
+      font-size: 0.75rem;
+      color: rgba(27,27,56,0.5);
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .projects-grid { grid-template-columns: repeat(2, 1fr); }
+      .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+      .span-2 { grid-column: span 2; }
+    }
+    @media (max-width: 768px) {
+      .navbar { padding: 16px 20px; }
+      .navbar .brand { display: none; }
+      .hero { flex-direction: column; gap: 40px; padding: 40px 20px 60px; min-height: auto; text-align: center; }
+      .hero-visual { width: 280px; height: 280px; }
+      .hero-portrait { width: 200px; height: 200px; }
+      .hero-buttons { justify-content: center; }
+      .about-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 20px 80px; }
+      .projects-section { padding: 60px 20px 80px; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .timeline-section { grid-template-columns: 1fr; gap: 24px; padding: 60px 20px 80px; }
+      .achievements-section { padding: 60px 20px 80px; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .span-2 { grid-column: span 1; }
+    }
+
+    /* Wave animation */
+    @keyframes wave {
+      0%,100% { transform: rotate(0deg); }
+      20% { transform: rotate(14deg); }
+      40% { transform: rotate(-8deg); }
+      60% { transform: rotate(14deg); }
+      80% { transform: rotate(-4deg); }
+    }
+    .wave { display: inline-block; transform-origin: 70% 80%; animation: wave 2.5s ease-in-out infinite; }
+  </style>
+</head>
+<body>
+
+<div class="bg-dots" aria-hidden="true"></div>
+
+<div class="content-wrap">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#about" class="nav-pill">About</a></li>
+      <li><a href="#projects" class="nav-pill">Projects</a></li>
+      <li><a href="#experience" class="nav-pill">Experience</a></li>
+      <li><a href="#education" class="nav-pill">Education</a></li>
+      <li><a href="#achievements" class="nav-pill">Highlights</a></li>
+    </ul>
+    <span class="brand">Mahak Sharma &nbsp;//&nbsp; Contact</span>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-visual">
+      <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M405,210 L343,187 L320,125 L297,187 L235,210 L297,233 L320,295 L343,233 Z" fill="#FFCF44"/>
+        <circle cx="210" cy="210" r="152" fill="#FFCF44"/>
+        <path d="M55 148 Q18 210 55 272" stroke="#FFCF44" stroke-width="10" stroke-linecap="round" fill="none"/>
+        <path d="M74 163 Q46 210 74 258" stroke="#FFCF44" stroke-width="7" stroke-linecap="round" fill="none"/>
+        <rect x="84" y="130" width="9" height="9" rx="1.5" fill="#FFCF44"/>
+        <rect x="70" y="278" width="9" height="9" rx="1.5" fill="#FFCF44"/>
+      </svg>
+      <div class="hero-portrait">
+        <div class="icon-circle">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" style="color:rgba(27,27,56,0.4)">
+            <circle cx="12" cy="8" r="4" stroke="currentColor" stroke-width="2"/>
+            <path d="M4 20c0-4 4-6 8-6s8 2 8 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <span class="label">Photo Placeholder</span>
+      </div>
+    </div>
+    <div class="hero-text">
+      <h1>Hello! <span class="wave">👋</span><br/>I'm <span>Mahak</span>.</h1>
+      <p>I turn product capability into customer outcomes through strategy, delivery and messy work of making change stick.</p>
+      <div class="hero-buttons">
+        <a href="mailto:hello@example.com" class="btn-coral">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="1" y="3" width="14" height="10" rx="2" stroke="white" stroke-width="1.5"/><path d="M1 5l7 5 7-5" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg>
+          Connect
+        </a>
+        <a href="#" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2.5" y="1" width="9" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/><path d="M9.5 1v4h4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M9.5 1l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><path d="M5 8h6M5 11h4" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Resume
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="about-section">
+      <div style="padding-top:8px"><span class="section-label">About</span></div>
+      <div class="text-block">
+        <h2>Building where strategy meets execution.</h2>
+        <p>I've spent five years sitting at the intersection of technical and commercial — building AI-powered channels, owning enterprise customer success, and launching go-to-market motions from scratch across global markets.</p>
+        <p>I'm drawn to problems that live at the crossroads of people, product, and process. I do my best work in fast-moving, ambiguous environments — the kind where the path isn't clear yet, and figuring it out is half the job.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="projects-section">
+      <div class="projects-header">
+        <div class="projects-header-left">
+          <span class="section-label">Projects</span>
+          <h2>Work I'm <em>proud of.</em></h2>
+        </div>
+      </div>
+      <div class="projects-grid">
+        <!-- IHG -->
+        <a href="ihg-case-study-v2 (7).html" target="_blank" rel="noopener noreferrer" class="proj-card">
+          <div class="proj-card-visual real">
+            <div class="proj-logo">IHG</div>
+          </div>
+          <div class="proj-card-body">
+            <div class="proj-tags">
+              <span class="tag tag-coral">Strategy</span>
+              <span class="tag tag-muted">Product</span>
+            </div>
+            <h3>IHG Fraud Prevention</h3>
+            <p style="color:rgba(27,27,56,0.55)">Redesigning fraud detection for IHG's loyalty program — balancing security, guest trust, and operational efficiency.</p>
+            <span class="view-link" style="color:var(--navy);text-decoration:underline;text-underline-offset:3px">View →</span>
+          </div>
+        </a>
+        <!-- Credit Lite -->
+        <a href="credit-lite (1).html" target="_blank" rel="noopener noreferrer" class="proj-card">
+          <div class="proj-card-visual real">
+            <div class="proj-logo">CL</div>
+          </div>
+          <div class="proj-card-body">
+            <div class="proj-tags">
+              <span class="tag tag-coral">Product</span>
+              <span class="tag tag-muted">Fintech</span>
+            </div>
+            <h3>Credit Lite</h3>
+            <p style="color:rgba(27,27,56,0.55)">A lightweight credit product designed for thin-file customers — turning alternative data into fair access to credit.</p>
+            <span class="view-link" style="color:var(--navy);text-decoration:underline;text-underline-offset:3px">View →</span>
+          </div>
+        </a>
+        <!-- Placeholder 1 -->
+        <div class="proj-card">
+          <div class="proj-card-visual placeholder">
+            <div class="placeholder-decor-1"></div>
+            <div class="placeholder-decor-2"></div>
+            <span class="placeholder-text">Coming Soon</span>
+          </div>
+          <div class="proj-card-body">
+            <div class="proj-tags">
+              <span class="tag tag-muted-placeholder">Placeholder</span>
+            </div>
+            <h3>Project Title</h3>
+            <p style="color:rgba(27,27,56,0.35)">A short description of the project will go here once ready to publish.</p>
+            <span class="view-link" style="color:rgba(27,27,56,0.3)">Coming soon →</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EXPERIENCE -->
+  <section id="experience">
+    <div class="timeline-section">
+      <div class="timeline-sidebar"><span class="section-label">Experience</span></div>
+      <div class="timeline-rail">
+        <!-- Kennar Health -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#3BBFB2">KH</div>
+              <h3>Kennar Health</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>Feb 2026 – May 2026</span>
+              <div><span>📍 New York, USA</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Strategy Intern</div>
+          <p class="timeline-desc">First business hire — building GTM from zero at an early-stage AI healthtech.</p>
+        </div>
+        <!-- HSBC -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#DB0011">H</div>
+              <h3>HSBC</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2023 – 2025</span>
+              <div><span>📍 Bangalore, India</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Product Delivery Manager</div>
+          <p class="timeline-desc">Led AI-powered channel transformation across APAC & EMEA at one of the world's largest banks.</p>
+        </div>
+        <!-- Zyla Health -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#7C3AED">Z</div>
+              <h3>Zyla Health</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2022</span>
+              <div><span>📍 Gurgaon, India</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Marketing Intern</div>
+          <p class="timeline-desc">Drove user engagement through data-led campaigns at a digital chronic care platform.</p>
+        </div>
+        <!-- Mercer Mettl -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#F97316">M</div>
+              <h3>Mercer Mettl</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2019 – 2021</span>
+              <div><span>📍 Gurgaon, India</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Delivery Lead</div>
+          <p class="timeline-desc">Owned a $2M enterprise portfolio, delivering SaaS implementations across APAC.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- EDUCATION -->
+  <section id="education">
+    <div class="timeline-section">
+      <div class="timeline-sidebar"><span class="section-label">Education</span></div>
+      <div class="timeline-rail">
+        <!-- Cornell -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#B31B1B">C</div>
+              <h3>Cornell Tech · SC Johnson College of Business</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2025 – 2026</span>
+              <div><span>📍 New York, USA</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Master of Business Administration (MBA)</div>
+        </div>
+        <!-- IMT -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo small-text" style="background:#1E3A8A">IMT</div>
+              <h3>Institute of Management Technology</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2021 – 2023</span>
+              <div><span>📍 Ghaziabad, India</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Post Graduate Diploma in Management (PGDM)</div>
+        </div>
+        <!-- Manipal -->
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-header">
+            <div class="timeline-header-left">
+              <div class="timeline-logo" style="background:#EA580C">M</div>
+              <h3>Manipal University Jaipur</h3>
+            </div>
+            <div class="timeline-meta">
+              <span>2015 – 2019</span>
+              <div><span>📍 Jaipur, India</span></div>
+            </div>
+          </div>
+          <div class="timeline-role">Bachelor of Technology in Information Technology (B.Tech)</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ACHIEVEMENTS -->
+  <section id="achievements">
+    <div class="achievements-section">
+      <div class="achievements-header">
+        <span class="section-label">Highlights</span>
+        <h2>Things I'm <em>proud of.</em></h2>
+      </div>
+      <div class="achievements-grid">
+        <!-- Card 1 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#F0F2F5;border-radius:20px">
+            <div class="card-front" style="background:#F0F2F5">
+              <div><div class="card-org">HSBC Bank · 2025</div></div>
+              <div style="margin-top:auto">
+                <h3>Stakeholder Recognition Award</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#F0F2F5">
+              <p>Recognised by senior stakeholders across APAC and EMEA for exceptional cross-functional delivery and leadership on HSBC's digital transformation programme.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#F0F2F5;border-radius:20px">
+            <div class="card-front" style="background:#F0F2F5">
+              <div><div class="card-org">HSBC · 2024</div></div>
+              <div style="margin-top:auto">
+                <h3>Peer Unicorn Award</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#F0F2F5">
+              <p>Voted by peers for going above and beyond — recognised for collaborative spirit and consistent impact across teams.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#F0F2F5;border-radius:20px">
+            <div class="card-front" style="background:#F0F2F5">
+              <div><div class="card-org">HSBC · 2023</div></div>
+              <div style="margin-top:auto">
+                <h3>Runner-up, HSBC Hackathon</h3>
+                <p class="card-subtitle">Amongst 20+ teams</p>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#F0F2F5">
+              <p>Competed against 20+ cross-functional teams, building an AI-powered solution to improve customer service resolution times.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 4 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#FFF8D6;border-radius:20px">
+            <div class="card-front" style="background:#FFF8D6">
+              <div><div class="card-org">Zyla Health · 2022</div></div>
+              <div style="margin-top:auto">
+                <h3>Best Internship Project Award</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#FFF8D6">
+              <p>Awarded for delivering a data-driven email campaign strategy that drove a 12% lift in CTR and a 20% improvement in NPS response rates.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 5 (span 2) -->
+        <div class="achievement-card span-2" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#FFF8D6;border-radius:20px">
+            <div class="card-front" style="background:#FFF8D6">
+              <div><div class="card-org">Mercer Mettl · 2019–2021</div></div>
+              <div style="margin-top:auto">
+                <h3>Spot Award — Three consecutive years</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#FFF8D6">
+              <p>Awarded three years in a row for outstanding client delivery, consistently exceeding KPIs across a $2M enterprise account portfolio.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 6 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#FFF0E8;border-radius:20px">
+            <div class="card-front" style="background:#FFF0E8">
+              <div><div class="card-org">IMT Ghaziabad · 2024</div></div>
+              <div style="margin-top:auto">
+                <h3>President, Cultural Committee</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#FFF0E8">
+              <p>Led a 50+ member cultural committee, organising IMT's flagship annual fest and representing the student body in cross-campus events.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 7 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#FFF0E8;border-radius:20px">
+            <div class="card-front" style="background:#FFF0E8">
+              <div><div class="card-org">Manipal University Jaipur · 2019</div></div>
+              <div style="margin-top:auto">
+                <h3>President, Dance Committee</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#FFF0E8">
+              <p>Headed the university dance committee, choreographing and performing in inter-college competitions across India.</p>
+            </div>
+          </div>
+        </div>
+        <!-- Card 8 -->
+        <div class="achievement-card" onclick="this.classList.toggle('flipped')">
+          <div class="card-inner" style="background:#FFF0E8;border-radius:20px">
+            <div class="card-front" style="background:#FFF0E8">
+              <div><div class="card-org">Manipal University Jaipur · 2019</div></div>
+              <div style="margin-top:auto">
+                <h3>Winner, Inter-College Dance</h3>
+                <span class="card-view">View →</span>
+              </div>
+            </div>
+            <div class="card-back" style="background:#FFF0E8">
+              <p>Won the inter-college competition in Indian classical Kathak, and placed runner-up at the national level — a discipline I've trained in for over a decade.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <span class="footer-brand">Mahak Sharma &nbsp;//&nbsp; Portfolio</span>
+      <span class="footer-copy">© 2026 — Built with care.</span>
+    </div>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800;900&family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 48% 94%;
+    --foreground: 240 36% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 36% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 36% 16%;
+    --primary: 240 36% 16%;
+    --primary-foreground: 40 48% 94%;
+    --secondary: 40 48% 94%;
+    --secondary-foreground: 240 36% 16%;
+    --muted: 40 20% 90%;
+    --muted-foreground: 240 10% 40%;
+    --accent: 14 77% 63%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 10% 85%;
+    --input: 240 10% 85%;
+    --ring: 240 36% 16%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-cream text-navy font-sans;
+    overflow-x: hidden;
+    /* Smoother momentum scrolling on supported browsers */
+    -webkit-overflow-scrolling: touch;
+  }
+  h1,
+  h2 {
+    font-family: 'Playfair Display', serif;
+  }
+  h3 {
+    font-family: 'DM Serif Display', serif;
+  }
+  section {
+    /* GPU-promote each section to avoid repaint jank from the fixed dot bg */
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Dot pattern background */
+.bg-dots {
+  background-image: radial-gradient(rgba(27, 27, 56, 0.08) 1.2px, transparent 1.2px);
+  background-size: 28px 28px;
+  /* Promote to its own compositor layer so scrolling doesn't repaint the dots */
+  transform: translateZ(0);
+  will-change: transform;
+  backface-visibility: hidden;
+}
+
+/* Flip card */
+.flip-card {
+  perspective: 1000px;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.flip-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 48px rgba(27, 27, 56, 0.15);
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-front,
+.flip-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+  align-items: center;
+  justify-content: center;
+}
+
+/* Project card hover */
+.proj-card {
+  transition: transform 0.2s;
+}
+.proj-card:hover {
+  transform: translateY(-4px);
+}
+.proj-card:hover .proj-card-body {
+  background: #E97B55 !important;
+}
+.proj-card:hover .proj-card-body * {
+  color: #1B1B38 !important;
+}

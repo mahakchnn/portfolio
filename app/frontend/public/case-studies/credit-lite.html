@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Credit Lite | Mahak Sharma</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F2E9;
+    --navy: #1B1B38;
+    --teal: #3BBFB2;
+    --yellow: #FFCF44;
+    --coral: #E97B55;
+    --white: #FFFFFF;
+    --text: #1B1B38;
+    --text-light: #6A6070;
+    --border: rgba(27,27,56,0.1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  /* ── TOP NAV ── */
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .nav-pills { display: flex; gap: 0.5rem; }
+  .nav-pill {
+    padding: 0.35rem 1rem;
+    border: 1.5px solid var(--navy);
+    border-radius: 999px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    text-decoration: none;
+    color: var(--navy);
+    transition: all 0.2s;
+  }
+  .nav-pill:hover { background: var(--teal); color: var(--white); border-color: var(--teal); }
+  .nav-right {
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--navy);
+    display: flex;
+    gap: 0.8rem;
+    align-items: center;
+  }
+  .nav-right a { color: var(--navy); text-decoration: none; }
+  .nav-right span { opacity: 0.3; }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ── SECTION NAV ── */
+  .section-nav {
+    position: sticky;
+    top: 5rem;
+  }
+  .section-nav a {
+    display: block;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.8rem;
+    transition: all 0.2s;
+  }
+  .section-nav a:hover,
+  .section-nav a.active { color: var(--coral); border-left-color: var(--coral); }
+  .section-nav-label {
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  /* ── MAIN ── */
+  .main { min-width: 0; }
+
+  /* ── HERO ── */
+  .hero {
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--white);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--border);
+  }
+  .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--navy);
+    margin-bottom: 1.2rem;
+    max-width: 100%;
+  }
+  .hero h1 em { font-style: italic; color: var(--coral); }
+  .hero-sub {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    max-width: 100%;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 2.5rem;
+    width: fit-content;
+    margin-bottom: 1.8rem;
+  }
+  .meta-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.25rem;
+  }
+  .meta-value { font-size: 0.98rem; font-weight: 500; color: var(--navy); }
+  .hero-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--navy);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-tag {
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--navy);
+    margin-bottom: 1.5rem;
+  }
+  .section h2 em { font-style: italic; color: var(--coral); }
+  .section p {
+    font-size: 1.05rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  .section p:last-child { margin-bottom: 0; }
+  .highlight { color: var(--navy); font-weight: 600; }
+
+  /* ── PERSONA CARD ── */
+  .persona-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .persona-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+  .persona-card.highlight-card {
+    background: rgba(59,191,178,0.06);
+    border-color: rgba(59,191,178,0.3);
+  }
+  .persona-label {
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 1rem;
+  }
+  .persona-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 1rem;
+    line-height: 1.3;
+  }
+  .persona-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.4rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.93rem;
+  }
+  .persona-row:last-child { border-bottom: none; }
+  .persona-row-label { color: var(--text-light); }
+  .persona-row-value { font-weight: 500; color: var(--navy); }
+  .persona-quote {
+    margin-top: 1.2rem;
+    padding: 1rem 1.2rem;
+    background: var(--bg);
+    border-radius: 10px;
+    font-size: 0.93rem;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.6;
+    border-left: 3px solid var(--teal);
+  }
+
+  /* ── STATS ROW ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .stat-cell {
+    background: var(--white);
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #E97B55;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-desc { font-size: 0.88rem; color: var(--text-light); line-height: 1.5; }
+
+  /* ── THREE COL ── */
+  .three-col {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+  }
+  .col-cell { background: var(--white); padding: 1.8rem; }
+  .col-cell:not(:last-child) { border-right: 1px solid var(--border); }
+  .col-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.8rem;
+  }
+  .col-cell p { font-size: 0.98rem; color: var(--text-light); line-height: 1.7; max-width: 100%; margin: 0; }
+
+  /* ── SOLUTION CARDS ── */
+  .solution-list { display: flex; flex-direction: column; gap: 0.75rem; margin: 2.5rem 0; }
+  .solution-item {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem 2rem;
+    display: grid;
+    grid-template-columns: 48px 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: box-shadow 0.2s;
+  }
+  .solution-item:hover { box-shadow: 0 4px 20px rgba(27,27,56,0.08); }
+  .sol-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #E97B55;
+    line-height: 1;
+    padding-top: 0.1rem;
+    white-space: nowrap;
+  }
+  .sol-body h3 { font-size: 0.98rem; font-weight: 600; color: var(--navy); margin-bottom: 0.3rem; line-height: 1.3; }
+  .sol-body p { font-size: 0.95rem; color: var(--text-light); line-height: 1.7; max-width: 100%; margin: 0.4rem 0 0; }
+  .sol-layer {
+    font-size: 0.73rem;
+    font-weight: 600;
+    color: var(--navy);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    white-space: nowrap;
+    margin-top: 0.2rem;
+  }
+
+  /* ── COMPETITIVE TABLE ── */
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 2.5rem 0;
+    font-size: 0.93rem;
+  }
+  .comp-table th {
+    background: var(--navy);
+    color: var(--white);
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.83rem;
+    letter-spacing: 0.04em;
+  }
+  .comp-table td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-light);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-table td:first-child { font-weight: 600; color: var(--navy); }
+  .edge-cell { color: var(--teal); font-weight: 600; }
+
+  /* ── MOATS ── */
+  .moats-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .moat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem;
+  }
+  .moat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: #E97B55;
+    margin-bottom: 0.5rem;
+  }
+  .moat-card h3 { font-size: 0.98rem; font-weight: 600; color: var(--navy); margin-bottom: 0.5rem; }
+  .moat-card p { font-size: 0.93rem; color: var(--text-light); line-height: 1.6; max-width: 100%; margin: 0; }
+
+  /* ── VIDEO ── */
+  .video-wrap { margin: 2.5rem 0; border-radius: 16px; overflow: hidden; border: 1px solid var(--border); }
+  .video-label {
+    background: var(--white);
+    padding: 0.7rem 1.2rem;
+    font-size: 0.83rem;
+    font-weight: 500;
+    color: var(--text-light);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .video-dot { width: 7px; height: 7px; border-radius: 50%; }
+  .video-placeholder {
+    background: var(--white);
+    aspect-ratio: 16/9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+  }
+  .play-btn {
+    width: 56px; height: 56px;
+    background: var(--teal);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s, opacity 0.2s;
+    cursor: pointer;
+  }
+  .play-btn:hover { transform: scale(1.08); opacity: 0.9; }
+  .play-btn svg { margin-left: 4px; }
+  .video-placeholder span { font-size: 0.83rem; color: var(--text-light); font-weight: 500; }
+
+  /* ── MARKET ── */
+  .market-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2.5rem 0;
+  }
+  .market-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.6rem;
+  }
+  .market-card:nth-child(1) { border-top: 3px solid rgba(233,123,85,0.4); }
+  .market-card:nth-child(2) { border-top: 3px solid rgba(59,191,178,0.4); }
+  .market-card:nth-child(3) { border-top: 3px solid var(--navy); }
+  .market-label { font-size: 0.73rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-light); margin-bottom: 0.3rem; }
+  .market-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 0.6rem;
+  }
+  .market-card p { font-size: 0.88rem; color: var(--text-light); line-height: 1.6; max-width: 100%; margin: 0; }
+
+  /* ── OUTCOMES ── */
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.75rem;
+    margin: 2.5rem 0;
+  }
+  .outcome-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 1.3rem;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .outcome-card h4 { font-size: 0.88rem; font-weight: 600; color: var(--coral); line-height: 1.3; }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.83rem;
+    color: var(--text-light);
+  }
+  footer a { color: var(--coral); text-decoration: none; font-weight: 500; }
+
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+    .section-nav { display: none; }
+    .top-nav { padding: 1rem 1.5rem; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .three-col, .persona-grid, .moats-grid, .market-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
+    .solution-item { grid-template-columns: 40px 1fr; }
+    .sol-layer { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="top-nav">
+  <div class="nav-pills">
+    <a href="#" class="nav-pill">About</a>
+    <a href="#" class="nav-pill">Projects</a>
+    <a href="#" class="nav-pill">Experience</a>
+    <a href="#" class="nav-pill">Education</a>
+    <a href="#" class="nav-pill">Highlights</a>
+  </div>
+  <div class="nav-right">
+    <a href="#">Mahak Sharma</a>
+    <span>//</span>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<div class="layout">
+
+  <!-- SECTION NAV -->
+  <aside class="section-nav">
+    <div class="section-nav-label">On this page</div>
+    <a href="#problem">Problem</a>
+    <a href="#persona">User Persona</a>
+    <a href="#solution">Solution</a>
+    <a href="#market">Market</a>
+    <a href="#competitive">Competition</a>
+    <a href="#moats">Our Moats</a>
+    <a href="#economics">Unit Economics</a>
+    <a href="#demo">Demo</a>
+    <a href="#outcomes">Impact</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        Cornell Tech Product Studio · Fall 2026
+      </div>
+      <h1>Credit Lite: Redefining creditworthiness <em>for the next generation.</em></h1>
+      <p class="hero-sub">An AI-powered solution that transforms how banks assess creditworthiness for college students entering the financial system  giving the 1 in 3 students with no credit score a fair shot at being seen.</p>
+      <div class="hero-meta">
+        <div>
+          <div class="meta-label">Team</div>
+          <div class="meta-value">Mahak, Aagam, Carol, Kevin, Johnna</div>
+        </div>
+        <div>
+          <div class="meta-label">Type</div>
+          <div class="meta-value">0-to-1 Fintech Product</div>
+        </div>
+        <div>
+          <div class="meta-label">Stack</div>
+          <div class="meta-value">ML, Open Banking API, B2B SaaS</div>
+        </div>
+      </div>
+      <div class="hero-skills">
+        <span class="skill-tag">0-to-1 Product Thinking</span>
+        <span class="skill-tag">Market Sizing</span>
+        <span class="skill-tag">Unit Economics</span>
+        <span class="skill-tag">B2B Go-to-Market</span>
+        <span class="skill-tag">Fintech</span>
+        
+        <span class="skill-tag">Competitive Analysis</span>
+        <span class="skill-tag">User Research</span>
+        <span class="skill-tag">Business Case Development</span>
+      </div>
+    </div>
+
+    <!-- PROBLEM -->
+    <section class="section" id="problem">
+      <div class="section-tag">The Problem</div>
+      <h2>1 in 3 college students has no credit score  <em>despite responsible financial behaviour.</em></h2>
+      <p>Traditional credit bureaus only score prior credit use. College students who have never taken a credit card or loan have no score  regardless of how responsibly they pay rent, manage savings, or handle expenses. <span class="highlight">Around 1 in 3 college students aged 18-24 are credit invisible or unscorable, with young adults making up 40% of America's 49 million credit invisible population.</span></p>
+      <p>The result: loan denials, higher interest rates, and exclusion from basic financial products  for students whose financial behaviour is often exemplary.</p>
+
+      <div class="three-col">
+        <div class="col-cell">
+          <div class="col-label">The Systemic Gap</div>
+          <p>Credit bureaus only measure prior credit use. Students who have never used credit have no score  regardless of how responsibly they manage their money.</p>
+        </div>
+        <div class="col-cell">
+          <div class="col-label">The Real-World Impact</div>
+          <p>Denied credit lines, higher interest rates, inability to rent apartments or secure essential financial products. Responsible behaviour goes unrecognised.</p>
+        </div>
+        <div class="col-cell">
+          <div class="col-label">The Missed Opportunity</div>
+          <p>Banks that fail to underwrite this cohort forfeit two decades of customer lifetime value to competitors who can see what traditional bureaus cannot.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONA -->
+    <section class="section" id="persona">
+      <div class="section-tag">User Persona</div>
+      <h2>Meet Sophia: the financially responsible <em>'ghost.'</em></h2>
+      <p>Sophia represents the 1 in 3 college students who are credit invisible or unscorable  responsible with money, but completely invisible to traditional lending systems.</p>
+
+      <div class="persona-grid">
+        <div class="persona-card">
+          <div class="persona-label">Profile</div>
+          <h3>Sophia, 19</h3>
+          <div class="persona-row">
+            <span class="persona-row-label">University</span>
+            <span class="persona-row-value">Cornell University</span>
+          </div>
+          <div class="persona-row">
+            <span class="persona-row-label">Monthly Rent</span>
+            <span class="persona-row-value">£950  paid on time, always</span>
+          </div>
+          <div class="persona-row">
+            <span class="persona-row-label">Savings Balance</span>
+            <span class="persona-row-value">£1,800 maintained consistently</span>
+          </div>
+          <div class="persona-row">
+            <span class="persona-row-label">Financial Behaviour</span>
+            <span class="persona-row-value">Exemplary</span>
+          </div>
+        </div>
+        <div class="persona-card highlight-card">
+          <div class="persona-label">The Problem</div>
+          <h3>Invisible to the system</h3>
+          <div class="persona-row">
+            <span class="persona-row-label">Credit Score</span>
+            <span class="persona-row-value" style="color: var(--coral);">None  completely invisible</span>
+          </div>
+          <div class="persona-row">
+            <span class="persona-row-label">Application Result</span>
+            <span class="persona-row-value" style="color: var(--coral);">Denied  £500 credit line</span>
+          </div>
+          <div class="persona-row">
+            <span class="persona-row-label">Bureau Recognition</span>
+            <span class="persona-row-value" style="color: var(--coral);">Zero  no history to score</span>
+          </div>
+          <div class="persona-quote">
+            "I've paid rent for two straight years, never missed a payment, but I still got denied for a £500 credit limit because I'm basically 'invisible' to banks."
+            <div style="margin-top: 0.6rem; font-size: 0.83rem; font-style: normal; font-weight: 600; color: var(--navy);"> Sophia, Cornell sophomore</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section class="section" id="solution">
+      <div class="section-tag">The Solution</div>
+      <h2>Behavioural Credit Intelligence  <em>bank-grade, API-first.</em></h2>
+      <p>Credit Lite is a B2B API platform that plugs into existing bank underwriting infrastructure. It ingests alternative behavioural data starting at age 18 and uses proprietary ML models to build credit identities that traditional bureaus miss entirely.</p>
+
+      <div class="solution-list">
+        <div class="solution-item">
+          <div class="sol-num">01</div>
+          <div class="sol-body">
+            <h3>Comprehensive Data Ingestion</h3>
+            <p>Captures cashflow patterns, digital behaviour, rental history, and subscription management from age 18 onwards. 8+ credit-relevant events per year where traditional bureaus see nothing.</p>
+          </div>
+          <span class="sol-layer">Data layer</span>
+        </div>
+        <div class="solution-item">
+          <div class="sol-num">02</div>
+          <div class="sol-body">
+            <h3>AI-Powered Risk Assessment</h3>
+            <p>Proprietary ML models analyse behavioural signals to build robust credit identities. 24-month longitudinal profiles deliver approval-rate lifts traditional bureaus cannot match.</p>
+          </div>
+          <span class="sol-layer">ML layer</span>
+        </div>
+        <div class="solution-item">
+          <div class="sol-num">03</div>
+          <div class="sol-body">
+            <h3>Bank-Grade API Integration</h3>
+            <p>Seamless deployment into existing underwriting infrastructure. Full regulatory compliance, ECOA-compliant explainability layer, and real-time risk scoring in 100ms.</p>
+          </div>
+          <span class="sol-layer">API layer</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- MARKET -->
+    <section class="section" id="market">
+      <div class="section-tag">Market Opportunity</div>
+      <h2>From beachhead to <em>dominance.</em></h2>
+      <p>The opportunity scales from a focused student lending beachhead to a full thin-file consumer data platform spanning 45 million people in the US alone.</p>
+
+      <div class="market-grid">
+        <div class="market-card">
+          <div class="market-label">SOM · Year 1</div>
+          <div class="market-num">£6M</div>
+          <p>20 regional bank pilots at £25K + 10 campus wallet apps + 100K student data monetisation at £40 per student.</p>
+        </div>
+        <div class="market-card">
+          <div class="market-label">SAM · Serviceable</div>
+          <div class="market-num">£420M</div>
+          <p>16M college students currently enrolled in US degree-granting institutions. Behavioural queries at 8 events × £0.50 plus £360M in institutional licences.</p>
+        </div>
+        <div class="market-card">
+          <div class="market-label">TAM · Total Addressable</div>
+          <div class="market-num">£2.1B</div>
+          <p>45M thin-file consumers across the US. Full behavioural data platform and API licensing across all lender integrations.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPETITIVE -->
+    <section class="section" id="competitive">
+      <div class="section-tag">Competition</div>
+      <h2>A differentiated <em>position.</em></h2>
+      <p>Existing solutions are either consumer-facing or address narrow data gaps. Credit Lite is a B2B API platform built specifically for domestic student credit invisibility from age 18.</p>
+
+      <table class="comp-table">
+        <thead>
+          <tr>
+            <th>Competitor</th>
+            <th>Model</th>
+            <th>Limitation</th>
+            <th>Our Edge</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Petal Card</td>
+            <td>B2C, behavioural data</td>
+            <td>Issues credit directly  not a B2B platform</td>
+            <td class="edge-cell">API infrastructure for banks, not consumer product competition</td>
+          </tr>
+          <tr>
+            <td>Nova Credit</td>
+            <td>B2B, international histories</td>
+            <td>Strong for immigrants, weak for domestic US students</td>
+            <td class="edge-cell">Predictive behavioural models starting at age 18 domestically</td>
+          </tr>
+          <tr>
+            <td>Experian Boost</td>
+            <td>B2C, limited utility data</td>
+            <td>Adds only subscriptions and utilities  no full underwriting model</td>
+            <td class="edge-cell">Multi-feature behavioural engine with bank-grade API integration</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- MOATS -->
+    <section class="section" id="moats">
+      <div class="section-tag">Our Moats</div>
+      <h2>Building an <em>unassailable position.</em></h2>
+      <p>Four compounding moats make Credit Lite structurally difficult to displace once adopted by a bank.</p>
+
+      <div class="moats-grid">
+        <div class="moat-card">
+          <div class="moat-num">01</div>
+          <h3>Network Effects</h3>
+          <p>As more students onboard, predictive models improve accuracy in early credit cycles. Banks join for this accuracy lift, generating more volume and data, which strengthens the model further.</p>
+        </div>
+        <div class="moat-card">
+          <div class="moat-num">02</div>
+          <h3>Proprietary Data Flywheel</h3>
+          <p>Students → Better Model → More Banks → More Data → Stronger Model. Each cohort of students enriches the next generation of credit scoring for every bank on the platform.</p>
+        </div>
+        <div class="moat-card">
+          <div class="moat-num">03</div>
+          <h3>University Partnerships</h3>
+          <p>Exclusive university partnerships provide semester-level behavioural data banks cannot replicate or access through any other channel.</p>
+        </div>
+        <div class="moat-card">
+          <div class="moat-num">04</div>
+          <h3>RegTech Explainability Layer</h3>
+          <p>24-month longitudinal profiles and ECOA-compliant explainability deliver approval-rate lifts traditional bureaus cannot match  with full regulatory defensibility.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- UNIT ECONOMICS -->
+    <section class="section" id="economics">
+      <div class="section-tag">Unit Economics</div>
+      <h2>Robust infrastructure, <em>exceptional returns.</em></h2>
+      <p>Credit Lite is designed for strong SaaS unit economics from day one. At £1.17 average query price and £0.42 total COGS, the business generates a 64% gross margin with a path to £10M ARR by Year 3.</p>
+
+      <div class="stats-row">
+        <div class="stat-cell">
+          <div class="stat-num">64%</div>
+          <div class="stat-desc">Gross Margin at £1.17 average query price</div>
+        </div>
+        <div class="stat-cell" style="border-left: 1px solid var(--border);">
+          <div class="stat-num">30:1</div>
+          <div class="stat-desc">LTV:CAC ratio  £244K LTV vs £8K CAC</div>
+        </div>
+        <div class="stat-cell" style="border-left: 1px solid var(--border);">
+          <div class="stat-num">15:1</div>
+          <div class="stat-desc">ROI on £50K annual licence fee</div>
+        </div>
+        <div class="stat-cell" style="border-left: 1px solid var(--border);">
+          <div class="stat-num">£10M</div>
+          <div class="stat-desc">Target ARR by Year 3</div>
+        </div>
+      </div>
+
+      <div class="three-col">
+        <div class="col-cell">
+          <div class="col-label">Cost per Query</div>
+          <p>Data ingestion £0.10 + pricing engine £0.28 + cloud infrastructure £0.04 = <strong>£0.42 total COGS</strong> per query.</p>
+        </div>
+        <div class="col-cell">
+          <div class="col-label">Customer Economics</div>
+          <p>Blended CAC of £8,000 per client with a 4 to 6 month sales cycle. Average LTV of <strong>£244,000</strong> over 5-year tenure.</p>
+        </div>
+        <div class="col-cell">
+          <div class="col-label">Bank Impact</div>
+          <p>Approval rates for credit-invisible college applicants rise from ~20-25% under traditional models to 47%+ with Credit Lite. 2,000+ incremental approvals annually. <strong>£2.4M in 5-year NPV</strong> per implementing bank.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEMO -->
+    <section class="section" id="demo">
+      <div class="section-tag">Demo</div>
+      <h2>Seeing Credit Lite <em>in action.</em></h2>
+      <p>A walkthrough of the Credit Lite platform  from data ingestion and behavioural scoring to the bank-facing API dashboard and explainability layer.</p>
+
+      <div class="video-wrap">
+        <div class="video-label">
+          <span class="video-dot" style="background: var(--teal);"></span>
+          Product Demo
+        </div>
+        <div class="video-placeholder">
+          <div class="play-btn">
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+              <path d="M6 4L16 10L6 16V4Z" fill="white"/>
+            </svg>
+          </div>
+          <span>Add your demo video here</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section class="section" id="outcomes">
+      <div class="section-tag">Impact</div>
+      <h2>The next 20 years of <em>customer value starts today.</em></h2>
+      <p>Generation Z is the first generation whose financial identity is built digitally before it is built through credit products. Financial institutions that fail to accurately underwrite this cohort will forfeit two decades of customer lifetime value to competitors who embrace behavioural intelligence.</p>
+
+      <div class="outcomes-grid">
+        <div class="outcome-card"><h4>Credit access for the invisible</h4></div>
+        <div class="outcome-card"><h4>Higher approval rates for banks</h4></div>
+        <div class="outcome-card"><h4>Lower acquisition costs</h4></div>
+        <div class="outcome-card"><h4>20-year CLV unlocked</h4></div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Built by Mahak · Cornell Tech Product Studio 2026</span>
+  <a href="#" style="text-decoration:none; color: var(--coral); font-weight:500;">Back to Projects</a>
+</footer>
+
+<script>
+  const sections = document.querySelectorAll('.section');
+  const navLinks = document.querySelectorAll('.section-nav a');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === '#' + entry.target.id) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  sections.forEach(s => observer.observe(s));
+</script>
+
+</body>
+</html>
