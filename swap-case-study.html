@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SWAP Vertical Expansion | Mahak Sharma</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2E8;
+    --green-dark: #0D4A2A;
+    --green-mid: #1A6640;
+    --green-light: #4A9B6F;
+    --green-pale: #E8F2EC;
+    --ink: #111111;
+    --mute: #5A5A5A;
+    --border: rgba(13,74,42,0.15);
+    --white: #FFFFFF;
+    --accent: #1A6640;
+    --line: rgba(13,74,42,0.12);
+    --text-light: #1a1a1a;
+    --text: #111111;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── NAV ── */
+  .nav {
+    position: sticky; top: 0; z-index: 50;
+    padding: 20px 0 14px;
+    background: #F5F2E8;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    max-width: 1280px; margin: 0 auto; padding: 0 56px;
+  }
+  .mark {
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: 17px;
+    letter-spacing: -0.01em;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .mark .last { color: var(--accent); }
+  .mark .dot { color: var(--accent); }
+  .pills {
+    display: flex; gap: 4px;
+    padding: 5px; border: 1px solid var(--line);
+    border-radius: 999px;
+    background: color-mix(in oklch, var(--bg) 60%, white);
+  }
+  .pills a {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    padding: 8px 13px;
+    border-radius: 999px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+    transition: background 180ms ease, color 180ms ease;
+  }
+  .pills a:hover { background: rgba(17,17,17,0.06); }
+  .pills a.active { background: var(--text); color: var(--bg); }
+  .nav-cta {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--text);
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .nav-cta:hover { color: var(--accent); }
+
+  /* ── LAYOUT ── */
+  .layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    gap: 5rem;
+    align-items: start;
+  }
+
+  /* ── SECTION NAV ── */
+  .section-nav {
+    position: sticky;
+    top: 5rem;
+  }
+  .section-nav a {
+    display: block;
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: var(--text-light);
+    text-decoration: none;
+    padding: 0.4rem 0;
+    border-left: 2px solid transparent;
+    padding-left: 0.8rem;
+    transition: all 0.2s;
+  }
+  .section-nav a:hover,
+  .section-nav a.active { color: var(--accent); border-left-color: var(--accent); }
+  .section-nav-label {
+    font-size: 1.0rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.8rem;
+    padding-left: 0.8rem;
+  }
+
+  /* ── MAIN ── */
+  .main { min-width: 0; }
+
+  /* ── HERO ── */
+  .hero {
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--green-pale);
+    border-radius: 999px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: var(--green-dark);
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(13,74,42,0.2);
+  }
+  .hero-tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green-dark); }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.15;
+    color: var(--ink);
+    margin-bottom: 1.2rem;
+  }
+  .hero h1 em { font-style: italic; color: var(--green-dark); }
+  .hero-sub {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    max-width: 100%;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    gap: 2.5rem;
+    width: fit-content;
+    margin-bottom: 1.8rem;
+  }
+  .meta-label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 0.25rem;
+  }
+  .meta-value { font-size: 1.08rem; font-weight: 500; color: var(--ink); }
+  .hero-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-tag {
+    display: inline-block;
+    padding: 0.35rem 0.9rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.93rem;
+    font-weight: 500;
+    color: var(--green-dark);
+  }
+
+  /* ── SECTIONS ── */
+  .section {
+    padding: 2.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .section:last-child { border-bottom: none; }
+  .section-tag {
+    font-size: 0.83rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.8rem;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 1.5rem;
+  }
+  .section h2 em { font-style: italic; color: var(--green-dark); }
+  .section p {
+    font-size: 1.15rem;
+    color: var(--text-light);
+    line-height: 1.8;
+    max-width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  .section p:last-child { margin-bottom: 0; }
+  .highlight { color: var(--ink); font-weight: 600; }
+
+  /* ── QUESTION BLOCK ── */
+  .questions {
+    background: var(--green-dark);
+    padding: 2rem 2.5rem;
+    margin: 2rem 0;
+    color: var(--white);
+  }
+  .question-item {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--white);
+    padding: 0.6rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.15);
+    line-height: 1.5;
+  }
+  .question-item:last-child { border-bottom: none; }
+  .question-item span { color: rgba(255,255,255,0.6); font-weight: 400; margin-right: 0.5rem; }
+
+  /* ── VERTICALS GRID ── */
+  .verticals-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .vertical-card {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+  .vertical-card:nth-child(2) { background: var(--green-mid); }
+  .vertical-card:nth-child(3) { background: var(--green-light); }
+
+  /* ── FRAMEWORK TABLE ── */
+  .framework-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid var(--border);
+    margin: 2rem 0;
+    font-size: 1.0rem;
+  }
+  .framework-table th {
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.93rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .framework-table td {
+    padding: 0.9rem 1.2rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-light);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .framework-table tr:last-child td { border-bottom: none; }
+  .framework-table td:first-child { font-weight: 500; color: var(--ink); background: var(--green-pale); }
+  .strong-cell { font-weight: 700; color: var(--green-dark); }
+  .muted-cell { color: var(--mute); }
+
+  /* ── PRIORITY CARDS ── */
+  .priority-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+  .priority-card {
+    padding: 1.5rem 2rem;
+    color: var(--white);
+  }
+  .priority-card:nth-child(1) { background: var(--green-dark); }
+  .priority-card:nth-child(2) { background: var(--green-mid); }
+  .priority-card:nth-child(3) { background: var(--green-light); }
+  .priority-label {
+    font-size: 0.83rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 0.3rem;
+  }
+  .priority-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 0.4rem;
+  }
+  .priority-sub {
+    font-size: 0.83rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ── VERTICAL DETAIL ── */
+  .vertical-detail {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  .detail-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+  .detail-label {
+    font-size: 0.83rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--green-dark);
+    margin-bottom: 0.8rem;
+  }
+  .detail-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .detail-block ul li {
+    font-size: 1.0rem;
+    color: var(--text-light);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    line-height: 1.4;
+  }
+  .detail-block ul li:last-child { border-bottom: none; }
+  .detail-block ul li::before {
+    content: "▸";
+    color: var(--green-dark);
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+  }
+
+  /* ── MARKET STAT ── */
+  .market-stat {
+    background: var(--green-pale);
+    border-left: 4px solid var(--green-dark);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 1.0rem;
+    color: var(--text-light);
+  }
+  .market-stat strong { color: var(--green-dark); font-size: 1.15rem; }
+
+  /* ── QUOTE ── */
+  .quote-block {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green-dark);
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+  }
+  .quote-text {
+    font-size: 1.08rem;
+    font-style: italic;
+    color: var(--text-light);
+    line-height: 1.7;
+    margin-bottom: 0.8rem;
+  }
+  .quote-attr {
+    font-size: 0.93rem;
+    font-weight: 600;
+    color: var(--green-dark);
+  }
+  .quote-role {
+    font-size: 0.88rem;
+    color: var(--mute);
+    font-weight: 400;
+  }
+
+  /* ── PROMISE CARDS ── */
+  .promise-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+  .promise-card {
+    padding: 1.5rem 2rem;
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+  .promise-card:nth-child(1) { background: var(--green-dark); }
+  .promise-card:nth-child(2) { background: var(--green-mid); }
+  .promise-card:nth-child(3) { background: var(--green-light); }
+  .promise-headline {
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .promise-sub {
+    font-size: 0.93rem;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  /* ── GTM ── */
+  .gtm-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 2rem 0;
+  }
+  .gtm-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 1.5rem;
+    align-items: start;
+    background: var(--white);
+    border: 1px solid var(--border);
+    padding: 1.4rem 1.5rem;
+  }
+  .gtm-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+  }
+  .gtm-body h3 { font-size: 1.08rem; font-weight: 600; color: var(--ink); margin-bottom: 0.3rem; }
+  .gtm-body p { font-size: 1.0rem; color: var(--text-light); line-height: 1.6; margin: 0; }
+
+
+  /* ── JOURNEY / DEMO ── */
+  .journey-tagline {
+    background: var(--green-dark);
+    color: var(--white);
+    font-size: 1.08rem;
+    font-weight: 700;
+    text-align: center;
+    padding: 1.2rem 2rem;
+    margin: 1.5rem 0 3rem;
+    letter-spacing: 0.02em;
+  }
+  .demo-step {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 3rem;
+    align-items: center;
+    margin-bottom: 4rem;
+    padding-bottom: 4rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .demo-step:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+  .demo-step-reverse { grid-template-columns: 1fr 220px; }
+  .demo-step-reverse .demo-step-label { order: 2; }
+  .demo-step-reverse .demo-screen { order: 1; }
+  .demo-step-label {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .demo-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--green-dark);
+    line-height: 1;
+  }
+  .demo-info h3 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 0.4rem;
+  }
+  .journey-flow {
+    font-size: 0.83rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--green-mid);
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+  .demo-screen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .demo-step-full {
+    display: block;
+  }
+  .demo-step-label-top {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .demo-screen-dual {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .demo-gif-wide {
+    width: 100%;
+    max-height: 420px;
+    object-fit: cover;
+    border: 1px solid var(--border);
+  }
+  .demo-gif-phone {
+    max-height: 420px;
+    width: auto;
+    border: 1px solid var(--border);
+  }
+
+  .demo-gif {
+    max-height: 520px;
+    max-width: 100%;
+    width: auto;
+    display: block;
+    border: 1px solid var(--border);
+    background: var(--white);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.93rem;
+    color: var(--mute);
+  }
+  footer a { color: var(--green-dark); text-decoration: none; font-weight: 500; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .layout { grid-template-columns: 1fr; padding: 2rem 1.5rem; }
+    .section-nav { display: none; }
+    .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .verticals-row, .vertical-detail { grid-template-columns: 1fr; }
+    .framework-table { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="nav-inner">
+    <a href="./mahak-sharma-portfolio.html" class="mark">Mahak <span class="last">Sharma</span></a>
+
+    <a href="./mahak-sharma-portfolio.html" class="nav-cta">Back to portfolio ↗</a>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- SECTION NAV -->
+  <aside class="section-nav">
+    <div class="section-nav-label">On this page</div>
+    <a href="#brief">The Brief</a>
+    <a href="#verticals">Verticals</a>
+    <a href="#framework">Framework</a>
+    <a href="#prioritization">Prioritization</a>
+    <a href="#grocery">Grocery</a>
+    <a href="#medicine">Medicine</a>
+    <a href="#homegood">Home Good</a>
+    <a href="#promise">The Promise</a>
+    <a href="#journey">Demo / Journey</a>
+    <a href="#gtm">Go-to-Market</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-tag">
+        <div class="hero-tag-dot"></div>
+        Cornell Tech · Big Red Founders Challenge · Spring 2026
+      </div>
+      <h1>SWAP: Vertical Expansion Strategy for <em>Agentic Commerce.</em></h1>
+      <p class="hero-sub">A go-to-market and prioritisation framework for SWAP Commerce — mapping which verticals to enter, in what order, and why home goods is the highest-conviction first move.</p>
+      <div class="hero-meta">
+        <div>
+          <div class="meta-label">Team</div>
+          <div class="meta-value">Anyssa, Anirvan, Mahak, Shivani</div>
+        </div>
+        <div>
+          <div class="meta-label">Type</div>
+          <div class="meta-value">GTM Strategy · Vertical Expansion</div>
+        </div>
+        <div>
+          <div class="meta-label">Stack</div>
+          <div class="meta-value">User Research · GTM · Prioritisation · AI Demo</div>
+        </div>
+      </div>
+      <div class="hero-skills">
+        <span class="skill-tag">User Research</span>
+        <span class="skill-tag">GTM Strategy</span>
+        <span class="skill-tag">Vertical Prioritisation</span>
+        <span class="skill-tag">AI Product Demo</span>
+        <span class="skill-tag">Agentic Commerce</span>
+        <span class="skill-tag">Working Prototype</span>
+        <span class="skill-tag">Market Sizing</span>
+      </div>
+    </div>
+
+    <!-- THE BRIEF -->
+    <section class="section" id="brief">
+      <div class="section-tag">The Brief</div>
+      <h2>For thirty years, e-commerce was a <em>digital catalogue.</em></h2>
+      <p>SWAP is turning it into a world-class salesperson. The challenge: which verticals should SWAP expand into next, how should they be prioritised, and what are the creative use cases for this agentic commerce technology?</p>
+      <div class="questions">
+        <div class="question-item"><span>01</span> What other vertical e-commerce experiences should we cater to?</div>
+        <div class="question-item"><span>02</span> What are the creative uses for this technology?</div>
+        <div class="question-item"><span>03</span> How do you think about prioritising verticals?</div>
+      </div>
+    </section>
+
+    <!-- VERTICALS -->
+    <section class="section" id="verticals">
+      <div class="section-tag">Verticals</div>
+      <h2>Three verticals <em>on the table.</em></h2>
+      <p>We evaluated three candidate verticals — each with meaningful guided-selling potential and different risk-return profiles.</p>
+      <div class="verticals-row">
+        <div class="vertical-card">Grocery</div>
+        <div class="vertical-card">Medicine</div>
+        <div class="vertical-card">Home Goods</div>
+      </div>
+      <p>We spoke to real practitioners across all three: an Instacart VP of Research, a Miss Universe Indonesia who is also a medical doctor, and a professional interior designer. Their input shaped our entire framework.</p>
+    </section>
+
+    <!-- FRAMEWORK -->
+    <section class="section" id="framework">
+      <div class="section-tag">Framework</div>
+      <h2>The Momentum <em>Framework.</em></h2>
+      <p>We built a structured scoring matrix across six criteria to cut through intuition and evaluate each vertical on what actually drives GTM success for an agentic commerce platform.</p>
+      <table class="framework-table">
+        <thead>
+          <tr>
+            <th>Criterion</th>
+            <th>Home Good</th>
+            <th>Medicine</th>
+            <th>Grocery</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Guided selling need</td>
+            <td class="strong-cell">High</td>
+            <td class="strong-cell">High</td>
+            <td class="strong-cell">High</td>
+          </tr>
+          <tr>
+            <td>Market opportunity</td>
+            <td class="strong-cell">$500B</td>
+            <td class="strong-cell">$270B</td>
+            <td><span class="muted-cell">$650B — narrow margins</span></td>
+          </tr>
+          <tr>
+            <td>AOV &amp; net margin</td>
+            <td class="strong-cell">AOV $95–$295 · ~$25–$35 net/order</td>
+            <td class="strong-cell">AOV $45–$1,500+ · ~$10–$375 net/order</td>
+            <td class="muted-cell">AOV $45–$147 · ~$0.50–$3 net/order</td>
+          </tr>
+          <tr>
+            <td>Strategic fit / SWAP tech reuse</td>
+            <td class="strong-cell">Strong</td>
+            <td class="strong-cell">Strong</td>
+            <td>Moderate / Strong</td>
+          </tr>
+          <tr>
+            <td>Rollout feasibility</td>
+            <td class="strong-cell">Fastest</td>
+            <td>Moderate — OTC-first wedge</td>
+            <td class="muted-cell">Moderate to slow</td>
+          </tr>
+          <tr>
+            <td>Competitive defensibility</td>
+            <td class="strong-cell">High</td>
+            <td>Medium / High</td>
+            <td class="muted-cell">Low / crowded</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PRIORITIZATION -->
+    <section class="section" id="prioritization">
+      <div class="section-tag">Prioritization</div>
+      <h2>The verdict: <em>sequence matters.</em></h2>
+      <p>Not all verticals are equal — and timing is strategy. We recommended a phased approach anchored on proof-of-value before regulatory complexity.</p>
+      <div class="priority-stack">
+        <div class="priority-card">
+          <div class="priority-label">Launch Now</div>
+          <div class="priority-name">Home Goods</div>
+          <div class="priority-sub">High opportunity · High return rate · Fastest proof</div>
+        </div>
+        <div class="priority-card">
+          <div class="priority-label">Scale Next</div>
+          <div class="priority-name">Medicine</div>
+          <div class="priority-sub">High opportunity · High stakes decisions · Regulatory challenge</div>
+        </div>
+        <div class="priority-card">
+          <div class="priority-label">Scale Later</div>
+          <div class="priority-name">Grocery</div>
+          <div class="priority-sub">Largest market · Very narrow margin · Heavy incumbent competition</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GROCERY -->
+    <section class="section" id="grocery">
+      <div class="section-tag">Grocery</div>
+      <h2>The Red Ocean: a mature <em>battlefield of efficiency.</em></h2>
+      <div class="market-stat"><strong>$650B market</strong> — AOV $45–$147, 1–3% net margin = ~$0.50–$3 net/order</div>
+      <div class="quote-block">
+        <div class="quote-text">"Grocery AI commerce development is very crowded, and with low margins. Competing with giants like Amazon would mean risking significant losses."</div>
+        <div class="quote-attr">Tim Allen <span class="quote-role">— Instacart's Former VP of Research</span></div>
+      </div>
+      <div class="vertical-detail">
+        <div class="detail-block">
+          <div class="detail-label">Pain Points</div>
+          <ul>
+            <li>Recipe-to-cart friction</li>
+            <li>Budget and dietary constraints</li>
+            <li>Substitution handling</li>
+            <li>Household coordination</li>
+            <li>Replenishment</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">Use Cases</div>
+          <ul>
+            <li>AI meal planner agent with budget awareness</li>
+            <li>Smart replenishment subscription</li>
+            <li>Social/community commerce layer</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- MEDICINE -->
+    <section class="section" id="medicine">
+      <div class="section-tag">Medicine</div>
+      <h2>Regulated Blue Ocean: a frontier <em>of trust.</em></h2>
+      <div class="market-stat"><strong>$270B market</strong> (OTC + wellness + aesthetics + weight loss) — AOV $45–$1,500+, 20–25% net margin</div>
+      <div class="quote-block">
+        <div class="quote-text">"We really need better consultations. Doctors aren't always available, and waiting months for an appointment with an expert is a real pain point."</div>
+        <div class="quote-attr">Ayu Saraswati <span class="quote-role">— Miss Universe Indonesia, Former Medical Practitioner</span></div>
+      </div>
+      <div class="vertical-detail">
+        <div class="detail-block">
+          <div class="detail-label">Pain Points</div>
+          <ul>
+            <li>Huge need for in-depth consultation</li>
+            <li>Long, uncertain decision-making</li>
+            <li>Ambiguity on dosage and treatment</li>
+            <li>Self-service information gap</li>
+            <li>Can't visualise what weight loss looks like</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">Use Cases</div>
+          <ul>
+            <li>Conversational decision support</li>
+            <li>Orthodontics/braces planning</li>
+            <li>Cosmetic surgery preview</li>
+            <li>Injectables (Botox) visualisation</li>
+            <li>OTC/wellness conversational support</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- HOME GOOD -->
+    <section class="section" id="homegood">
+      <div class="section-tag">Home Good</div>
+      <h2>High Urgency Blue Ocean: the logical evolution <em>of spatial fit.</em></h2>
+      <div class="market-stat"><strong>$500B market</strong> — AOV $95–$295, 10–20% net margin = ~$25–$35 net/order</div>
+      <div class="quote-block">
+        <div class="quote-text">"My clients need confidence in the details. Virtual try-ons can eliminate all those in-store trips and deliver the certainty they're looking for."</div>
+        <div class="quote-attr">Mar'at Architects <span class="quote-role">— Home and Commerce Interior Designer</span></div>
+      </div>
+      <div class="vertical-detail">
+        <div class="detail-block">
+          <div class="detail-label">Pain Points</div>
+          <ul>
+            <li>Spatial uncertainty: size and room mismatch</li>
+            <li>Colour and material mismatch</li>
+            <li>Style coherence gap</li>
+            <li>Renovation blindspot</li>
+            <li>Cross-border duty complexity</li>
+          </ul>
+        </div>
+        <div class="detail-block">
+          <div class="detail-label">Use Cases</div>
+          <ul>
+            <li>Inspirational showroom (live video to cart)</li>
+            <li>Room-planning agent + AR/3D VTO</li>
+            <li>Cross-border/relocation support</li>
+            <li>Home renovation mid-build flow</li>
+            <li>B2B: hotels and architects</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE PROMISE -->
+    <section class="section" id="promise">
+      <div class="section-tag">The Promise</div>
+      <h2>What SWAP delivers <em>for Home Good.</em></h2>
+      <div class="promise-stack">
+        <div class="promise-card">
+          <div class="promise-headline">Improve Conversion</div>
+          <div class="promise-sub">From 87% cart abandonment</div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-headline">Reduce Decision Making Time</div>
+          <div class="promise-sub">From weeks to under 3 days</div>
+        </div>
+        <div class="promise-card">
+          <div class="promise-headline">Significantly Reduce Returns</div>
+          <div class="promise-sub">From 30% to under 5%</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- JOURNEY / DEMO -->
+    <section class="section" id="journey">
+      <div class="section-tag">Demo / Journey</div>
+      <h2>Home Good Agentic Journey: <em>End to End Orchestration.</em></h2>
+
+      <div class="journey-tagline">
+        From spatial doubt to physical delivery in a single conversational thread.
+      </div>
+
+      <div class="demo-step demo-step-full">
+        <div class="demo-step-label demo-step-label-top">
+          <div class="demo-num">01</div>
+          <div class="demo-info">
+            <h3>Inspiration</h3>
+            <div class="journey-flow">LIVE VIDEO &gt; CONVERSE &gt; GET INSPIRED</div>
+          </div>
+        </div>
+        <div class="demo-screen-dual">
+          <img src="inspiration-livevideo.gif" alt="Live video demo" class="demo-gif demo-gif-wide" loading="lazy">
+          <img src="inspiration.gif" alt="App demo" class="demo-gif demo-gif-phone" loading="lazy">
+        </div>
+      </div>
+
+      <div class="demo-step demo-step-reverse">
+        <div class="demo-step-label">
+          <div class="demo-num">02</div>
+          <div class="demo-info">
+            <h3>Convincing</h3>
+            <div class="journey-flow">3D SPATIAL SCAN &gt; MEASURE &gt; PLAN PLACEMENT</div>
+          </div>
+        </div>
+        <div class="demo-screen">
+          <img src="convincing-app.gif" alt="Convincing demo" class="demo-gif" loading="lazy">
+        </div>
+      </div>
+
+      <div class="demo-step">
+        <div class="demo-step-label">
+          <div class="demo-num">03</div>
+          <div class="demo-info">
+            <h3>Consideration</h3>
+            <div class="journey-flow">CONVERSE &gt; COMPARE OPTIONS FROM INVENTORY</div>
+          </div>
+        </div>
+        <div class="demo-screen">
+          <img src="consideration.gif" alt="Consideration demo" class="demo-gif" loading="lazy">
+        </div>
+      </div>
+
+      <div class="demo-step demo-step-reverse">
+        <div class="demo-step-label">
+          <div class="demo-num">04</div>
+          <div class="demo-info">
+            <h3>Purchase &amp; Logistics</h3>
+            <div class="journey-flow">CONVERSE &gt; BUY</div>
+          </div>
+        </div>
+        <div class="demo-screen">
+          <img src="purchase.gif" alt="Purchase demo" class="demo-gif" loading="lazy">
+        </div>
+      </div>
+
+    </section>
+
+
+    <!-- GO-TO-MARKET -->
+    <section class="section" id="gtm">
+      <div class="section-tag">Go-to-Market</div>
+      <h2>Win 10 brands. Then 100. <em>Then 1,000.</em></h2>
+      <p>A land-and-expand motion anchored on proof with high-signal home goods brands before scaling to the broader platform.</p>
+      <div class="gtm-steps">
+        <div class="gtm-step">
+          <div class="gtm-num">01</div>
+          <div class="gtm-body">
+            <h3>Land with Wayfair-tier brands</h3>
+            <p>Target 10 high-AOV home goods brands with documented return and abandonment problems. Deliver measurable conversion lift within 90 days.</p>
+          </div>
+        </div>
+        <div class="gtm-step">
+          <div class="gtm-num">02</div>
+          <div class="gtm-body">
+            <h3>Build the proof base</h3>
+            <p>Use live data from initial brands to anchor the sales motion — conversion rates, return reduction, and decision time as the core commercial narrative.</p>
+          </div>
+        </div>
+        <div class="gtm-step">
+          <div class="gtm-num">03</div>
+          <div class="gtm-body">
+            <h3>Make elite commerce tech available for everyone</h3>
+            <p>Expand to 100, then 1,000 brands. The same agentic technology that powers enterprise becomes accessible at every tier of the market.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>Big Red Founders Challenge · Team 7 · Cornell Tech 2026</span>
+  <div class="foot-links">
+    <a class="foot-link" href="https://www.linkedin.com/in/mahakch/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0z"/></svg>
+    </a>
+    <a class="foot-link" href="https://github.com/mahakchnn/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .3a12 12 0 0 0-3.79 23.4c.6.1.82-.26.82-.58v-2.05c-3.34.73-4.04-1.6-4.04-1.6-.55-1.39-1.34-1.76-1.34-1.76-1.09-.74.08-.73.08-.73 1.21.09 1.84 1.24 1.84 1.24 1.07 1.84 2.81 1.31 3.5 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.34-5.47-5.95 0-1.32.47-2.39 1.24-3.23-.13-.31-.54-1.54.12-3.21 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.67.25 2.9.12 3.21.77.84 1.24 1.91 1.24 3.23 0 4.62-2.81 5.64-5.49 5.94.43.37.81 1.1.81 2.22v3.29c0 .32.21.69.83.58A12 12 0 0 0 12 .3"/></svg>
+    </a>
+    <a class="foot-link" href="mailto:mc2976@cornell.edu" aria-label="Email">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+    </a>
+  </div>
+  <a href="./mahak-sharma-portfolio.html#projects" class="back-link">Back to Projects ↗</a>
+</footer>
+
+<style>
+  footer {
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .foot-links { display: inline-flex; align-items: center; gap: 10px; }
+  .foot-link {
+    width: 32px; height: 32px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text);
+    text-decoration: none;
+    transition: background 180ms ease, color 180ms ease, border-color 180ms ease;
+  }
+  .foot-link:hover {
+    background: var(--green-dark, #111);
+    color: #fff;
+    border-color: var(--green-dark, #111);
+  }
+  .back-link {
+    font-weight: 500;
+    color: var(--green-dark, #111);
+    text-decoration: none;
+  }
+  .back-link:hover { color: var(--accent); }
+</style>
+
+<script>
+const sections = document.querySelectorAll('.section');
+  const sideLinks = document.querySelectorAll('.section-nav a');
+  const pillLinks = document.querySelectorAll('#pills a');
+
+  function setActive(id) {
+    [sideLinks, pillLinks].forEach(links => {
+      links.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === '#' + id) link.classList.add('active');
+      });
+    });
+  }
+
+  function onScroll() {
+    const y = window.scrollY + window.innerHeight * 0.35;
+    let current = sections[0]?.id;
+    sections.forEach(s => { if (s.offsetTop <= y) current = s.id; });
+    if (current) setActive(current);
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+
+</body>
+</html>
