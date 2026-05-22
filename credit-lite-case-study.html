@@ -286,6 +286,15 @@
   .stat-desc { font-size: 1.08rem; color: var(--text-light); line-height: 1.5; }
 
   /* ── THREE COL ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 0;
+    overflow: hidden;
+  }
   .three-col {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -503,7 +512,7 @@
     .section-nav { display: none; }
     .nav-inner { padding: 0 1.5rem; }
     .hero-meta { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    .three-col, .persona-grid, .moats-grid, .market-grid { grid-template-columns: 1fr; }
+    .two-col, .three-col, .persona-grid, .moats-grid, .market-grid { grid-template-columns: 1fr; }
     .stats-row { grid-template-columns: repeat(2, 1fr); }
     .outcomes-grid { grid-template-columns: repeat(2, 1fr); }
     .solution-item { grid-template-columns: 40px 1fr; }
@@ -534,7 +543,7 @@
     <a href="#competitive">Competition</a>
     <a href="#moats">Our Moats</a>
     <a href="#economics">Unit Economics</a>
-    <a href="#demo">Demo</a>
+    <!-- <a href="#demo">Demo</a> -->
     <a href="#outcomes">Impact</a>
   </aside>
 
@@ -802,7 +811,7 @@
         </div>
       </div>
 
-      <div class="three-col">
+      <div class="two-col">
         <div class="col-cell">
           <div class="col-label">Cost per Query</div>
           <p>Data ingestion $0.10 + pricing engine $0.28 + infra $0.04 = <strong>$0.42 COGS</strong> per query.</p>
@@ -816,7 +825,7 @@
     </section>
 
     <!-- DEMO -->
-    <section class="section" id="demo">
+    <!-- <section class="section" id="demo">
       <div class="section-tag">Demo</div>
       <h2>Seeing Credit Lite <em>in action.</em></h2>
       <div class="video-wrap">
@@ -833,7 +842,7 @@
           <span>Add your demo video here</span>
         </div>
       </div>
-    </section>
+    </section> -->
 
     <!-- OUTCOMES -->
     <section class="section" id="outcomes">
